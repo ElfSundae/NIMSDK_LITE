@@ -1,4 +1,4 @@
-[![Build status](https://github.com/ElfSundae/NIMSDK_LITE-xcframework/workflows/Build/badge.svg)](https://github.com/ElfSundae/NIMSDK_LITE-xcframework/actions?query=workflow%3ABuild)
+[![Build status](https://github.com/ElfSundae/NIMSDK_LITE/workflows/Build/badge.svg)](https://github.com/ElfSundae/NIMSDK_LITE/actions?query=workflow%3ABuild)
 
 XCFramework build for Netease IM SDK [NIMSDK_LITE](https://netease.im/im-sdk-demo).
 
