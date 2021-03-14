@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+$name = 'NIMSDK_LITE';
+$repo = 'https://github.com/ElfSundae/NIMSDK_LITE-xcframework.git';
+
 $version = null;
 $newVersion = null;
 
@@ -17,7 +20,7 @@ if ($argc > 1) {
     }
 }
 
-(new Builder('NIMSDK_LITE', $version, $newVersion))->run();
+(new Builder($name, $repo, $version, $newVersion))->run();
 
 class Helper
 {
@@ -281,13 +284,15 @@ class Helper
 class Builder
 {
     protected $name;
+    protected $repo;
     protected $version;
     protected $newVersion;
     protected $workingDir;
 
-    public function __construct($name, $version, $newVersion = null)
+    public function __construct($name, $repo, $version, $newVersion = null)
     {
         $this->name = $name;
+        $this->repo = $repo;
         $this->version = $version ?: $this->fetchPodLatestVersion($this->name);
         $this->newVersion = $newVersion ?: $this->patchVersion($this->version);
 
@@ -301,14 +306,8 @@ class Builder
         $spec = $this->fetchPodspec($this->name, $this->version, true);
         $this->buildForPodspec($spec);
 
-        return;
-
-        $spec['version'] = $this->newVersion;
-        $spec = $this->replacePodSource($spec);
-        // $spec = $this->addXcodeConfig($spec);
-
-        $json = $this->encodePodspecToJSON($spec);
-        file_put_contents(__DIR__.'/'.$this->name.'.podspec.json', $json.PHP_EOL);
+        $spec = $this->updatePodspec($spec);
+        $this->savePodspec($spec);
     }
 
     protected function fetchPodLatestVersion($name)
@@ -430,45 +429,36 @@ class Builder
         return $path;
     }
 
-    /**
-     * Replace the `http` protocol of `source` to `https`.
-     *
-     * - WARN  | http: The URL (`http://yx-web.nos.netease.com/package/1603355217/NIM_iOS_SDK_IM_v8.0.1.zip`) doesn't use the encrypted HTTPS protocol. It is crucial for Pods to be transferred over a secure protocol to protect your users from man-in-the-middle attacks. This will be an error in future releases. Please update the URL to use https.
-     *
-     * [!] 'NIMSDK_LITE' uses the unencrypted 'http' protocol to transfer the Pod. Please be sure you're in a safe network with only trusted hosts. Otherwise, please reach out to the library author to notify them of this security issue.
-     */
-    protected function replacePodSource($spec)
+    protected function updatePodspec($spec)
     {
-        $url = $spec['source']['http'];
-        if (strpos($url, 'https') === 0) {
-            return $spec;
+        $spec['version'] = $this->newVersion;
+
+        $spec['source'] = [
+            'git' => $this->repo,
+            'tag' => $this->newVersion,
+        ];
+
+        if (isset($spec['vendored_frameworks'])) {
+            $spec['vendored_frameworks'] = array_map(function ($value) {
+                return preg_replace(
+                    '#^(\*\*/)(.+)\.framework$#m',
+                    $this->name.'/$1$2.xcframework',
+                    $value
+                );
+            }, (array) $spec['vendored_frameworks']);
         }
 
-        $components = parse_url($url);
-        $url = 'https://yx-web-nosdn.netease.im'.$components['path']
-            .'?download='.basename($components['path']);
-        $spec['source']['http'] = $url;
-
         return $spec;
     }
 
-    /**
-     * Add `EXCLUDED_ARCHS = arm64` build setting for iOS Simulator.
-     *
-     * ld: building for iOS Simulator, but linking in dylib built for iOS, file 'NIMSDK.framework/NIMSDK' for architecture arm64
-     *
-     * References: https://stackoverflow.com/a/63955114/521946
-     */
-    protected function addXcodeConfig($spec)
+    protected function savePodspec($spec)
     {
-        $spec['user_target_xcconfig']
-            = $spec['pod_target_xcconfig']
-            = ['EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386 arm64'];
+        $json = $this->encodePodspecToJson($spec);
 
-        return $spec;
+        file_put_contents(__DIR__.'/'.$this->name.'.podspec.json', $json.PHP_EOL);
     }
 
-    protected function encodePodspecToJSON($spec)
+    protected function encodePodspecToJson($spec)
     {
         $json = json_encode($spec, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
