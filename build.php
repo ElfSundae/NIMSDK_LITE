@@ -2,7 +2,7 @@
 <?php
 
 $name = 'NIMSDK_LITE';
-$repo = 'https://github.com/ElfSundae/NIMSDK_LITE-xcframework.git';
+$repo = 'https://e.coding.net/ssl/XCFrameworks/NIMSDK_LITE.git';
 
 $version = null;
 $newVersion = null;
