@@ -448,6 +448,12 @@ class Builder
             }, (array) $spec['vendored_frameworks']);
         }
 
+        if (isset($spec['resources'])) {
+            $spec['resources'] = array_map(function ($value) {
+                return preg_replace('#^(\*\*/)#m', $this->name.'/$1', $value);
+            }, (array) $spec['resources']);
+        }
+
         return $spec;
     }
 
