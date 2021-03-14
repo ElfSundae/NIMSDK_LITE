@@ -325,7 +325,7 @@ class Builder
 
         if (! preg_match('#^'.$name.'(/.+)?/([\d.]+)$#m', $versions, $matches)) {
             echo 'error parsing pods versions index'.PHP_EOL;
-            exit(2);
+            exit(12);
         }
 
         echo $version = array_pop($matches), PHP_EOL;
@@ -360,14 +360,14 @@ class Builder
 
         if (! $data) {
             echo "Failed to fetch podspec from $url".PHP_EOL;
-            exit(11);
+            exit(21);
         }
 
         if ($decodeToArray) {
             $data = json_decode($data, true);
             if (! is_array($data)) {
                 echo 'Could not decode podspec'.PHP_EOL;
-                exit(12);
+                exit(22);
             }
         }
 
@@ -384,7 +384,7 @@ class Builder
             if (! $xcframework) {
                 echo 'failed'.PHP_EOL;
                 Helper::deletePath($src);
-                exit(14);
+                exit(31);
             } else {
                 echo 'done'.PHP_EOL;
             }
@@ -396,6 +396,7 @@ class Builder
         if (! rename($src, $dist)) {
             echo 'Error: could not move directory.'.PHP_EOL;
             Helper::deletePath($src);
+            exit(32);
         }
     }
 
@@ -415,7 +416,7 @@ class Builder
         echo "Downloading $url to $to...".PHP_EOL;
         if (! Helper::downloadFile($url, $to)) {
             echo 'Download failed.'.PHP_EOL;
-            exit(11);
+            exit(41);
         }
 
         echo 'Extracting '.basename($to).'...';
