@@ -1,6 +1,6 @@
 {
   "name": "NIMSDK_LITE",
-  "version": "8.4.001",
+  "version": "8.5.001",
   "summary": "Netease IM Lite SDK",
   "homepage": "http://netease.im",
   "license": {
@@ -10,7 +10,7 @@
   "authors": "Netease IM Team",
   "source": {
     "git": "https://e.coding.net/ssl/XCFrameworks/NIMSDK_LITE.git",
-    "tag": "8.4.001"
+    "tag": "8.5.001"
   },
   "platforms": {
     "ios": "9.0"
