@@ -273,6 +273,24 @@ typedef NS_ENUM(NSInteger,NIMMessageSearchOrder) {
  */
 @property (nullable, nonatomic, copy)   NSArray *teamArray;
 
+/**
+ * 发送方列表
+ * @discussion
+ */
+@property (nullable, nonatomic, copy)   NSArray *senderArray;
+
+/**
+ * 消息类型列表
+ * @discussion
+ */
+@property (nullable, nonatomic, copy)   NSArray *msgTypeArray;
+
+/**
+ * 消息子类型列表
+ * @discussion
+ */
+@property (nullable, nonatomic, copy)   NSArray *msgSubtypeArray;
+
 @end
 
 NS_ASSUME_NONNULL_END
