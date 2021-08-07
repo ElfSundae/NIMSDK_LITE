@@ -186,6 +186,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL asyncLoadRecentSessionEnabled;
 
 /**
+*  是否开启会话数据库备份，默认NO，不开启
+*  @discussion 开启数据库备份后，如果遇到数据库文件损坏，SDK会恢复备份的数据库文件，并重置漫游时间戳
+*/
+@property (nonatomic, assign) BOOL sessionDatabaseBackupEnabled;
+
+/**
  *  日志上传大小上限，默认 0，不限制，单位(byte)
  */
 @property (nonatomic, assign)  unsigned long long maxUploadLogSize;
