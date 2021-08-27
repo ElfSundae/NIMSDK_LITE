@@ -626,6 +626,11 @@ typedef NS_ENUM(NSUInteger, NIMClearMessagesStatus)
                                            messageIds:(NSArray<NSString *> *)messageIds;
 
 
+- (void)messagesInSession:(NIMSession *)session
+                  message:(NIMMessage *)message
+                    limit:(NSInteger)limit
+               completion:(NIMFetchMessageHistoryBlock)completion;
+
 /**
  *  获取所有未读数
  *  @discussion 只能在主线程调用,包括忽略提醒的会话

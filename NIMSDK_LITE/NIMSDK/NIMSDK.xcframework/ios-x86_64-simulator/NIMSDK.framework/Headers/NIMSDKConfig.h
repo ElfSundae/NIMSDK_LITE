@@ -212,6 +212,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSTimeInterval cdnTrackInterval;
 
 /**
+ * 聊天室消息接收回调最小时间间隔，不设置时，采用默认值
+ *  @discusssion SDK采纳的有效设置区间为：50毫秒到500毫秒，如果低于或高于边界值，采用边界值
+ */
+@property (nonatomic, assign) NSTimeInterval chatroomMessageReceiveMinInterval;
+
+/**
  *  设置 SDK 根目录
  *
  *  @param sdkDir SDK 根目录
