@@ -612,6 +612,18 @@ typedef NS_ENUM(NSUInteger, NIMClearMessagesStatus)
                                               message:(nullable NIMMessage *)message
                                                 limit:(NSInteger)limit;
 
+/**
+ *  从本地db读取一个会话里某条消息之前的若干条的消息
+ *
+ *  @param session 消息所属的会话
+ *  @param message 当前最早的消息,没有则传入nil
+ *  @param limit   个数限制
+ *  @param completion 完成后的回调
+ */
+- (void)messagesInSession:(NIMSession *)session
+                  message:(nullable NIMMessage *)message
+                    limit:(NSInteger)limit
+               completion:(NIMFetchMessageHistoryBlock)completion;
 
 /**
  *  根据消息Id获取消息
@@ -624,12 +636,6 @@ typedef NS_ENUM(NSUInteger, NIMClearMessagesStatus)
  */
 - (nullable NSArray<NIMMessage *> *)messagesInSession:(NIMSession *)session
                                            messageIds:(NSArray<NSString *> *)messageIds;
-
-
-- (void)messagesInSession:(NIMSession *)session
-                  message:(NIMMessage *)message
-                    limit:(NSInteger)limit
-               completion:(NIMFetchMessageHistoryBlock)completion;
 
 /**
  *  获取所有未读数

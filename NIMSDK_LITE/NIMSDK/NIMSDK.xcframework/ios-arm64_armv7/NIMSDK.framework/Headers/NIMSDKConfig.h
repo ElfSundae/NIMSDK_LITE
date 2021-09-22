@@ -218,6 +218,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSTimeInterval chatroomMessageReceiveMinInterval;
 
 /**
+ *  NIMSDK优化设置
+ *  @discussion 此选项为高级设置，具体设置需要联系技术支持。
+ */
+@property (nullable,nonatomic,copy)  NSString    *optimizeSettings;
+
+/**
  *  设置 SDK 根目录
  *
  *  @param sdkDir SDK 根目录
