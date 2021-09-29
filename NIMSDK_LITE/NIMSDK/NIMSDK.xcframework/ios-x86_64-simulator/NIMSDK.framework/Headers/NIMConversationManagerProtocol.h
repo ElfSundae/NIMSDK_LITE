@@ -653,6 +653,10 @@ typedef NS_ENUM(NSUInteger, NIMClearMessagesStatus)
  */
 - (NSInteger)allUnreadCount:(BOOL)notify;
 
+- (NSArray *)allUnreadMessagesInSession: (NIMSession *)session;
+
+- (void)allUnreadMessagesInSession: (NIMSession *)session completion:(NIMFetchMessageHistoryBlock)completion;
+
 /**
  *  获取所有最近会话。
  *  @return 最近会话列表
