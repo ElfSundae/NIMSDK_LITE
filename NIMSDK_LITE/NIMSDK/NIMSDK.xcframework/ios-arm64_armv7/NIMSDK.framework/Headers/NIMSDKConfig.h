@@ -241,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable, nonatomic)    id<NIMMsgIndexProduceDelegate> msgIndexProducer;
 
-@property (nonatomic, assign) NSString * flutterSDKVersion;
+@property (nonatomic, copy) NSString * flutterSDKVersion;
 
 @end
 
