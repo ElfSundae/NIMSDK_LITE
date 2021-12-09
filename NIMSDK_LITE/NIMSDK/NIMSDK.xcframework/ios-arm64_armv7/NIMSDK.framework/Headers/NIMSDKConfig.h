@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class NIMNotificationObject;
 @class NIMMessage;
 @class NIMChatroomCdnTrackInfo;
-@protocol NIMMsgIndexProduceDelegate;
 
 /**
  *  SDK 配置委托
@@ -235,13 +234,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic,assign)    BOOL    linkQuickSwitch;
-
-/**
- *  消息索引生成委托
- */
-@property (nullable, nonatomic)    id<NIMMsgIndexProduceDelegate> msgIndexProducer;
-
-@property (nonatomic, copy) NSString * flutterSDKVersion;
 
 @end
 

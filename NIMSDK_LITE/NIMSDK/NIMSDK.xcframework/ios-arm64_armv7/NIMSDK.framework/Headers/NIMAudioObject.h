@@ -87,11 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable,nonatomic, copy, readonly) NSString *md5;
 
-/**
- *  文件显示名
- */
-@property (nullable, nonatomic, copy)  NSString *displayName;
-
 @end
 
 NS_ASSUME_NONNULL_END
